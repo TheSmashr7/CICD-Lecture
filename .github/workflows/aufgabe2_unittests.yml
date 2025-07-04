@@ -28,4 +28,16 @@ jobs:
         with:
           name: junit-results
           path: target/surefire-reports/
+
+  jobs:
+    linter:
+      name: Linter
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Linter Style
+          run: mvn checkstyle:check
+
+        - name: Linter 2
+          run: mvn checkstyle:checkstyle
       
