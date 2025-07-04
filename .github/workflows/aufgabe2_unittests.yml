@@ -29,14 +29,22 @@ jobs:
           name: junit-results
           path: target/surefire-reports/
 
-    linter:
+    lint:
       name: Linter
       runs-on: ubuntu-latest
 
       steps:
-        - name: Linter Style
-          run: mvn checkstyle:check
+        - name: Checkout repository
+          uses: actions/checkout@v4
 
-        - name: Linter 2
-          run: mvn checkstyle:checkstyle
-      
+  
+        - name: Run Checkstyle
+          run: mvn checkstyle:check
+  
+        - name: Upload Checkstyle report
+          if: always()
+          uses: actions/upload-artifact@v4
+          with:
+            name: checkstyle-report
+            path: target/checkstyle-result.xml
+        
